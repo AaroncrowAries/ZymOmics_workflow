@@ -8,6 +8,13 @@ Before using, you need to install **Singularity**, a Docker like container softw
 apt-get update
 apt-get install singularity
 ```
+Decompress the compressed data file
+```
+cd TARM_Database
+cat Bacteria_RM_v1_202206_out.faa.gz.* > Bacteria_RM_v1_202206_out.faa.gz
+gunzip Bacteria_RM_v1_202206_out.faa.gz
+gunzip Bacteria_TA_v1_202206_out.faa.gz
+```
 
 ### Use
 Enter the project folder
