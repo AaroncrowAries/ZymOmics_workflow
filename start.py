@@ -26,7 +26,7 @@ def ta_commands(tarm_file, ta_dir, tarm_database):
         res = subprocess.Popen(com3, shell=True)
         res.wait()
         print('TADB index complete！')
-    com2 = ("""singularity exec -B $PWD CrisprCasFinder.simg psiblast -word_size 3 -outfmt 6 -num_threads 4 -db %s -query %s -out %s""") % (tarm_database+"Bacteria_TADB_202206", tarm_file, ta_dir+"TA_results")
+    com2 = ("""singularity exec -B $PWD CrisprCasFinder.simg psiblast -word_size 3 -outfmt 6 -max_hsps 1 -max_target_seqs 5 -evalue 1e-10 -num_threads 4 -db %s -query %s -out %s""") % (tarm_database+"Bacteria_TADB_202206", tarm_file, ta_dir+"TA_results")
     res = subprocess.Popen(com2, shell=True)
     res.wait()
     print('Toxin-AntiToxin proteins detction complete！')
@@ -40,7 +40,7 @@ def rm_commands(tarm_file, ta_dir, tarm_database):
         res = subprocess.Popen(com5, shell=True)
         res.wait()
         print('RMDB index complete！')
-    com4 = ("""singularity exec -B $PWD CrisprCasFinder.simg psiblast -word_size 3 -outfmt 6 -num_threads 4 -db %s -query %s -out %s""") % (tarm_database+"Bacteria_RMDB_202206", tarm_file, ta_dir+"RM_results")
+    com4 = ("""singularity exec -B $PWD CrisprCasFinder.simg psiblast -word_size 3 -outfmt 6 -max_hsps 1 -max_target_seqs 5 -evalue 1e-10 -num_threads 4 -db %s -query %s -out %s""") % (tarm_database+"Bacteria_RMDB_202206", tarm_file, ta_dir+"RM_results")
     res = subprocess.Popen(com4, shell=True)
     res.wait()
     print('Restriction-Modification proteins detction complete！')
@@ -72,18 +72,18 @@ if __name__ == "__main__":
 
     if outdir == "./":
         outdir = outdir + 'Results' + time.strftime('%Y%m%d%H%M%S') + "/"
-        comd = ("mkdir %s" % (outdir))
+        comd = ("mkdir -p %s" % (outdir))
         res = subprocess.Popen(comd, shell=True)
         res.wait()
     else:
         if not str(outdir).endswith("/") :
             outdir = outdir + '/Results' + time.strftime('%Y%m%d%H%M%S') + "/"
-            comd = ("mkdir %s" % (outdir))
+            comd = ("mkdir -p %s" % (outdir))
             res = subprocess.Popen(comd, shell=True)
             res.wait()
         else:
             outdir = outdir + 'Results' + time.strftime('%Y%m%d%H%M%S') + "/"
-            comd = ("mkdir %s" % (outdir))
+            comd = ("mkdir -p %s" % (outdir))
             res = subprocess.Popen(comd, shell=True)
             res.wait()
 
@@ -118,7 +118,7 @@ if __name__ == "__main__":
 
     if ta_bool == 'True':
         if args.database:
-            if args.tarm_file:
+            if args.input_tarm:
                 ta_comds = ta_commands(tarm_file, ta_dir, tarm_database)
             else:
                 sys.exit(
@@ -128,7 +128,7 @@ if __name__ == "__main__":
 
     if rm_bool == 'True':
         if args.database:
-            if args.tarm_file:
+            if args.input_tarm:
                 rm_comds = rm_commands(tarm_file, ta_dir, tarm_database)
             else:
                 sys.exit(
