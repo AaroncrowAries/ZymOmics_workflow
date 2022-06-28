@@ -17,7 +17,7 @@ def crisprcas_commands(crisprcas_file, crisprcas_dir):
     res.wait()
     print('CRISPR/Cas detction complete！')
 
-def ta_commands(tarm_file, ta_dir, tarm_database):
+def ta_commands(tarm_file, ta_dir, tarm_database, threads, evalue):
     print("Enter Toxin-AntiToxin proteins detection!")
     if "Bacteria_TADB_202206.phr" not in os.listdir(tarm_database):
         print("There is no index files for database, please wait for a while to complete the index process.")
@@ -26,12 +26,12 @@ def ta_commands(tarm_file, ta_dir, tarm_database):
         res = subprocess.Popen(com3, shell=True)
         res.wait()
         print('TADB index complete！')
-    com2 = ("""singularity exec -B $PWD CrisprCasFinder.simg psiblast -word_size 3 -outfmt 6 -max_hsps 1 -max_target_seqs 5 -evalue 1e-10 -num_threads 4 -db %s -query %s -out %s""") % (tarm_database+"Bacteria_TADB_202206", tarm_file, ta_dir+"TA_results")
+    com2 = ("""singularity exec -B $PWD CrisprCasFinder.simg psiblast -word_size 3 -outfmt 6 -max_hsps 1 -max_target_seqs 5 -evalue %s -num_threads %s -db %s -query %s -out %s""") % (evalue, str(threads),tarm_database+"Bacteria_TADB_202206", tarm_file, ta_dir+"TA_results")
     res = subprocess.Popen(com2, shell=True)
     res.wait()
     print('Toxin-AntiToxin proteins detction complete！')
 
-def rm_commands(tarm_file, ta_dir, tarm_database):
+def rm_commands(tarm_file, ta_dir, tarm_database,threads, evalue):
     print("Enter Restriction-Modification proteins detection!")
     if "Bacteria_RMDB_202206.phr" not in os.listdir(tarm_database):
         print("There is no index files for database, please wait for a while to complete the index process.")
@@ -40,7 +40,7 @@ def rm_commands(tarm_file, ta_dir, tarm_database):
         res = subprocess.Popen(com5, shell=True)
         res.wait()
         print('RMDB index complete！')
-    com4 = ("""singularity exec -B $PWD CrisprCasFinder.simg psiblast -word_size 3 -outfmt 6 -max_hsps 1 -max_target_seqs 5 -evalue 1e-10 -num_threads 4 -db %s -query %s -out %s""") % (tarm_database+"Bacteria_RMDB_202206", tarm_file, ta_dir+"RM_results")
+    com4 = ("""singularity exec -B $PWD CrisprCasFinder.simg psiblast -word_size 3 -outfmt 6 -max_hsps 1 -max_target_seqs 5 -evalue %s -num_threads %s -db %s -query %s -out %s""") % (evalue, str(threads),tarm_database+"Bacteria_RMDB_202206", tarm_file, ta_dir+"RM_results")
     res = subprocess.Popen(com4, shell=True)
     res.wait()
     print('Restriction-Modification proteins detction complete！')
@@ -55,6 +55,9 @@ if __name__ == "__main__":
                         help='Input file for TA/RM detection, protein sequences in fasta format is recommended.')
     parser.add_argument('-o', '--outdir', type=str, default="./", help='Output dir path. Default:\"./\"')
     parser.add_argument('-db', '--database', type=str, help='TA and RM database dir path. Example: \"./TARM_Database\"')
+    parser.add_argument('-threads', '--threads', type=int, default=8, help='The num of threads tha TA and RM psiblast use.')
+    parser.add_argument('-e', '--evalue', type=str, default="1e-10",
+                        help='The evalue of tha TA and RM psiblast use.')
 
     group = parser.add_argument_group('Debug option', description='When you need to skip steps, you can use '
                                                                   'these options separately.')
@@ -69,6 +72,8 @@ if __name__ == "__main__":
         sys.exit(1)
 
     outdir = os.path.abspath(args.outdir)
+    threads = args.threads
+    evalue = args.evalue
 
     if outdir == "./":
         outdir = outdir + 'Results' + time.strftime('%Y%m%d%H%M%S') + "/"
@@ -119,7 +124,7 @@ if __name__ == "__main__":
     if ta_bool == 'True':
         if args.database:
             if args.input_tarm:
-                ta_comds = ta_commands(tarm_file, ta_dir, tarm_database)
+                ta_comds = ta_commands(tarm_file, ta_dir, tarm_database, threads, evalue)
             else:
                 sys.exit(
                     "Please input input_tarm file path. If you don't need TA detection, Please input \"--TA False\"")
@@ -129,7 +134,7 @@ if __name__ == "__main__":
     if rm_bool == 'True':
         if args.database:
             if args.input_tarm:
-                rm_comds = rm_commands(tarm_file, ta_dir, tarm_database)
+                rm_comds = rm_commands(tarm_file, ta_dir, tarm_database, threads, evalue)
             else:
                 sys.exit(
                     "Please input input_tarm file path. If you don't need RM detection, Please input \"--RM False\"")
