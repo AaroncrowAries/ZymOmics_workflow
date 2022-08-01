@@ -1,0 +1,11 @@
+assembly_00005	EKN69289.1,[assembly=GCA_000307875.1],[subtype=typeII|restriction],[product=Restriction_endonuclease,_type_II,_AlwI]	41.981	212	116	3	450	660	539	744	1.69e-41	166
+ZMO1_ZMO0028	OEU70820.1,[assembly=GCA_001750915.1],[subtype=typeII|restriction],[product=restriction_endonuclease]	50.000	310	148	4	1	307	1	306	1.08e-108	322
+ZMO1_ZMO0028	SDL22944.1,[assembly=GCA_900101105.1],[subtype=typeII|restriction],[product=restriction_system_protein]	49.677	310	149	5	1	307	1	306	7.59e-106	314
+ZMO1_ZMO0028	KDICGMLM_00150,[assembly=GCA_001464585.1],[subtype=typeII|restriction],[product=Mrr_restriction_system_protein]	48.875	311	150	4	1	307	1	306	1.41e-103	308
+ZMO1_ZMO0028	NNFOCMDH_03007,[assembly=GCA_000426905.1],[subtype=typeII|restriction],[product=Mrr_restriction_system_protein]	47.727	308	155	4	1	307	1	303	3.81e-100	300
+ZMO1_ZMO0028	AEJ02494.1,[assembly=GCA_000219585.1],[subtype=typeII|restriction],[product=restriction_endonuclease]	46.753	308	158	4	1	307	1	303	8.82e-100	299
+ZMO1_ZMO1933	FAFHLFME_01155,[assembly=GCA_001563365.1],[subtype=typeI|S_subunit],[product=hypothetical_protein]	100.000	459	0	0	1	459	1	459	0.0	938
+ZMO1_ZMO1933	AAV90557.1,[assembly=GCA_000007105.1],[subtype=typeI|S_subunit],[product=hypothetical_protein]	100.000	459	0	0	1	459	1	459	0.0	938
+ZMO1_ZMO1933	KLPEAEIN_02017,[assembly=GCA_002484005.1],[subtype=typeI|S_subunit],[product=hypothetical_protein]	61.483	418	158	2	43	459	4	419	1.41e-178	509
+ZMO1_ZMO1933	BCBFIEDI_01474,[assembly=GCA_000303025.1],[subtype=typeI|S_subunit],[product=hypothetical_protein]	99.583	240	1	0	220	459	1	240	3.10e-174	491
+ZMO1_ZMO1933	OLP58128.1,[assembly=GCA_001938935.1],[subtype=typeI|S_subunit],[product=hypothetical_protein]	50.972	463	213	8	1	454	1	458	2.69e-145	427

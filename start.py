@@ -98,12 +98,6 @@ if __name__ == "__main__":
     ta_bool = group.TA
     rm_bool = group.RM
 
-    tarm_database = args.database
-    if not os.path.isdir(tarm_database):
-        print("The TARM_Database ir path specified does not exist")
-        sys.exit(2)
-    if not (tarm_database.endswith("/")):
-        tarm_database = tarm_database + '/'
     crisprcas_file = args.input_crisprcas
     tarm_file = args.input_tarm
 
@@ -120,6 +114,14 @@ if __name__ == "__main__":
             crisprcas_comds = crisprcas_commands(crisprcas_file, crisprcas_dir)
         else:
             sys.exit("Please input input_crisprcas file. If you don't need CC detection, Please input \"--CC False\"")
+
+    if ta_bool == 'True' or rm_bool == 'True':
+        tarm_database = args.database
+        if not os.path.isdir(tarm_database):
+            print("The TARM_Database ir path specified does not exist")
+            sys.exit(2)
+        if not (tarm_database.endswith("/")):
+            tarm_database = tarm_database + '/'
 
     if ta_bool == 'True':
         if args.database:
