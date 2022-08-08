@@ -118,7 +118,7 @@ if __name__ == "__main__":
     if ta_bool == 'True' or rm_bool == 'True':
         tarm_database = args.database
         if not os.path.isdir(tarm_database):
-            print("The TARM_Database ir path specified does not exist")
+            print("The TARM_Database dir path specified does not exist")
             sys.exit(2)
         if not (tarm_database.endswith("/")):
             tarm_database = tarm_database + '/'
