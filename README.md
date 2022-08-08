@@ -1,14 +1,19 @@
 # CrisprCas_TA_RM
-A Workflow that integrates the CRISPRCasFinder and library of toxin-antitoxins and Restriction-modification proteins we build to find CRISPR arrays, Cas proteins, toxin-antitoxins and Restriction-modification proteins.
+A Workflow that integrates the CRISPRCasFinder and library of toxin-antitoxins and Restriction-modification proteins. It can be used to find CRISPR arrays, Cas proteins, toxin-antitoxins and Restriction-modification proteins.
 
 ## User Mannul
 ### Install
-Before using, you need to install **Singularity**, a Docker like container software that does not require complex dependencies. 
+Before start, you need to install **Singularity**, a Docker like container software that does not require complex dependencies. 
+The version is recommended >= 3.8.6
 ```
 apt-get update
 apt-get install singularity
 ```
-Decompress the compressed data file
+OR
+```
+conda install -c conda-forge singularity
+```
+Download these files and decompress the compressed data file.
 ```
 cd CRISPR_TA_RM
 cat CrisprCasFinder.simg.gz.* > CrisprCasFinder.simg.gz
@@ -28,6 +33,7 @@ Use python3 to run start.py
 Enter the project folder
 Example:
 ```
+python3 start.py -h
 python3 start.py -i test_file1.fasta -I test_file2.faa -o ./ -db TARM_Database/
 ```
 
@@ -38,3 +44,4 @@ singularity exec -B $PWD CrisprCasFinder.simg perl /usr/local/CRISPRCasFinder/CR
 
 singularity exec -B $PWD CrisprCasFinder.simg psiblastp -h
 ```
+"-B $PWD" is used to specify the mount directory, which is recommended to set on the upper layer of the work directory.
